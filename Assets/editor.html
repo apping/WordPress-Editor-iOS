@@ -8,8 +8,8 @@
 	<script src="underscore-min.js"></script>
     <script src="shortcode.js"></script>
     <script src="jquery.mobile-events.min.js"></script>
-    <script src="WPHybridCallbacker.js"></script>
-    <script src="WPHybridLogger.js"></script>
+    <script src="H24HybridCallbacker.js"></script>
+    <script src="H24HybridLogger.js"></script>
     <script src="ZSSRichTextEditor.js"></script>
     <script src="wpload.js"></script>
     <script src="wpsave.js"></script>
@@ -48,8 +48,8 @@
             }
         }
     
-        callbacker = new WPHybridCallbacker();
-        logger = new WPHybridLogger(callbacker, '~');
+        callbacker = new H24HybridCallbacker();
+        logger = new H24HybridLogger(callbacker, '~');
         
         // If the classes above have errors that interrupt the execution of our javascript code
         // this flag will never be set to true... this is useful for our function myErrorHandler

@@ -9,7 +9,7 @@ RESOURCES_TO_COPY=${PODS_ROOT}/resources-to-copy-${TARGETNAME}.txt
 XCASSET_FILES=()
 
 realpath() {
-  DIRECTORY=$(cd "${1%/*}" && pwd)
+  DIRECTORY="$(cd "${1%/*}" && pwd)"
   FILENAME="${1##*/}"
   echo "$DIRECTORY/$FILENAME"
 }
@@ -22,7 +22,7 @@ install_resource()
       ibtool --reference-external-strings-file --errors --warnings --notices --output-format human-readable-text --compile "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename \"$1\" .storyboard`.storyboardc" "${PODS_ROOT}/$1" --sdk "${SDKROOT}"
       ;;
     *.xib)
-        echo "ibtool --reference-external-strings-file --errors --warnings --notices --output-format human-readable-text --compile ${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename \"$1\" .xib`.nib ${PODS_ROOT}/$1 --sdk ${SDKROOT}"
+      echo "ibtool --reference-external-strings-file --errors --warnings --notices --output-format human-readable-text --compile ${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename \"$1\" .xib`.nib ${PODS_ROOT}/$1 --sdk ${SDKROOT}"
       ibtool --reference-external-strings-file --errors --warnings --notices --output-format human-readable-text --compile "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename \"$1\" .xib`.nib" "${PODS_ROOT}/$1" --sdk "${SDKROOT}"
       ;;
     *.framework)
@@ -147,6 +147,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "../../Assets/ZSSundo.png"
   install_resource "../../Assets/ZSSundo@2x.png"
   install_resource "../../Assets/editor.html"
+  install_resource "../../Assets/H24HybridCallbacker.js"
+  install_resource "../../Assets/H24HybridLogger.js"
   install_resource "../../Assets/jquery.js"
   install_resource "../../Assets/jquery.mobile-events.min.js"
   install_resource "../../Assets/js-beautifier.js"
@@ -158,14 +160,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "../../Assets/rangy-textrange.js"
   install_resource "../../Assets/shortcode.js"
   install_resource "../../Assets/underscore-min.js"
-  install_resource "../../Assets/WPHybridCallbacker.js"
-  install_resource "../../Assets/WPHybridLogger.js"
   install_resource "../../Assets/wpload.js"
   install_resource "../../Assets/wpsave.js"
   install_resource "../../Assets/ZSSRichTextEditor.js"
   install_resource "../../Assets/wpposter.svg"
   install_resource "../../Assets/editor.css"
-  install_resource "${BUILT_PRODUCTS_DIR}/WordPress-iOS-Shared.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/Hemsida24-Shared.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "../../Assets/icon-posts-editor-inspector.png"
@@ -257,6 +257,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "../../Assets/ZSSundo.png"
   install_resource "../../Assets/ZSSundo@2x.png"
   install_resource "../../Assets/editor.html"
+  install_resource "../../Assets/H24HybridCallbacker.js"
+  install_resource "../../Assets/H24HybridLogger.js"
   install_resource "../../Assets/jquery.js"
   install_resource "../../Assets/jquery.mobile-events.min.js"
   install_resource "../../Assets/js-beautifier.js"
@@ -268,18 +270,18 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "../../Assets/rangy-textrange.js"
   install_resource "../../Assets/shortcode.js"
   install_resource "../../Assets/underscore-min.js"
-  install_resource "../../Assets/WPHybridCallbacker.js"
-  install_resource "../../Assets/WPHybridLogger.js"
   install_resource "../../Assets/wpload.js"
   install_resource "../../Assets/wpsave.js"
   install_resource "../../Assets/ZSSRichTextEditor.js"
   install_resource "../../Assets/wpposter.svg"
   install_resource "../../Assets/editor.css"
-  install_resource "${BUILT_PRODUCTS_DIR}/WordPress-iOS-Shared.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/Hemsida24-Shared.bundle"
 fi
 
+mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then
+  mkdir -p "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
   rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 fi
 rm -f "$RESOURCES_TO_COPY"
